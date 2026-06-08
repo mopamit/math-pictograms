@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פיקטוגרמה — כיתה ח׳</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#004ac6;--primary-container:#2563eb;--on-primary:#fff;
+  --secondary:#855300;--secondary-container:#fea619;
+  --tertiary:#006242;--tertiary-container:#007d55;--on-tertiary:#fff;
+  --error:#ba1a1a;
+  --surface:#f8f9ff;--surface-low:#eff4ff;--surface-container:#e5eeff;
+  --surface-high:#dce9ff;--surface-highest:#d3e4fe;
+  --on-surface:#0b1c30;--on-surface-variant:#434655;
+  --outline:#737686;--outline-variant:#c3c6d7;--white:#fff;
+  --shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.06);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.1);
+  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;
+}
+body{font-family:'Rubik',sans-serif;background:var(--surface);color:var(--on-surface);min-height:100vh;direction:rtl}
+.screen{display:none;min-height:100vh}
+.screen.active{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.container{max-width:1100px;margin:0 auto;padding:0 32px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:var(--white);border-bottom:1px solid var(--outline-variant);position:sticky;top:0;z-index:100}
+.topbar-logo{font-size:18px;font-weight:700;color:var(--primary)}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-size:15px;font-weight:600;cursor:pointer;background:none;border:none;font-family:'Rubik',sans-serif;padding:8px 16px;border-radius:var(--r-full);border:1.5px solid var(--outline-variant);transition:all .15s}
+.back-btn:hover{background:var(--surface-low);border-color:var(--primary)}
+
+/* HOME */
+.hero{background:linear-gradient(135deg,#dce9ff 0%,#e5eeff 60%,#eff4ff 100%);border-radius:20px;margin:32px 0 40px;padding:60px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:rgba(0,74,198,.06);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;background:rgba(254,166,25,.08);border-radius:50%}
+.hero-badge{display:inline-block;background:var(--white);border:1px solid var(--outline-variant);color:var(--on-surface-variant);font-size:13px;font-weight:500;padding:5px 16px;border-radius:var(--r-full);margin-bottom:20px;position:relative;z-index:1}
+.hero-title{font-size:40px;font-weight:700;color:var(--on-surface);margin-bottom:14px;position:relative;z-index:1;line-height:1.2}
+.hero-sub{font-size:17px;color:var(--on-surface-variant);max-width:560px;margin:0 auto;line-height:1.7;position:relative;z-index:1}
+.home-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px}
+.home-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:20px;padding:36px 28px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.home-card:hover{border-color:var(--primary);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.home-card .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.card-icon-circle{width:64px;height:64px;border-radius:var(--r-xl);display:flex;align-items:center;justify-content:center;font-size:30px}
+.home-card.type-a .card-icon-circle{background:var(--surface-low)}
+.home-card.type-b .card-icon-circle{background:#fff7ed}
+.home-card h2{font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:10px}
+.home-card p{font-size:15px;color:var(--on-surface-variant);line-height:1.65;margin-bottom:24px}
+.card-cta{display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-weight:600;font-size:15px}
+.card-cta::before{content:"←"}
+
+/* PAGE HEADERS */
+.page-header{text-align:center;padding:48px 0 36px}
+.page-header h1{font-size:32px;font-weight:700;color:var(--on-surface);margin-bottom:10px}
+.page-header p{font-size:16px;color:var(--on-surface-variant);max-width:600px;margin:0 auto}
+
+/* LIST */
+.list-cards{display:flex;flex-direction:column;gap:14px;max-width:720px;margin:0 auto 48px}
+.list-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:var(--r-xl);padding:20px 24px;cursor:pointer;display:flex;align-items:center;gap:18px;transition:all .2s}
+.list-card:hover{border-color:var(--primary);box-shadow:var(--shadow);transform:translateX(-2px)}
+.list-emoji{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.list-info h3{font-size:18px;font-weight:700;color:var(--on-surface);margin-bottom:3px}
+.list-info p{font-size:14px;color:var(--on-surface-variant)}
+.list-arrow{color:var(--primary);font-size:22px;margin-right:auto;flex-shrink:0}
+
+/* TYPE B CHOICE */
+.tb-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto 48px}
+.tb-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:20px;padding:40px 32px;cursor:pointer;text-align:center;transition:all .2s}
+.tb-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.tb-card .big-icon{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:38px}
+.tb-card.preset .big-icon{background:var(--primary);color:white}
+.tb-card.free .big-icon{background:var(--secondary-container);color:var(--secondary)}
+.tb-card h2{font-size:22px;font-weight:700;margin-bottom:12px;color:var(--on-surface)}
+.tb-card p{font-size:15px;color:var(--on-surface-variant);margin-bottom:28px;line-height:1.65}
+
+/* BUTTONS */
+.btn-primary{background:var(--primary);color:white;border:none;border-radius:var(--r-lg);padding:14px 28px;font-size:16px;font-weight:600;font-family:'Rubik',sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .15s;width:100%;justify-content:center}
+.btn-primary:hover{background:#003a9e;box-shadow:var(--shadow)}
+.btn-orange{background:var(--secondary-container);color:var(--secondary);border:none;border-radius:var(--r-lg);padding:14px 28px;font-size:16px;font-weight:600;font-family:'Rubik',sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .15s;width:100%;justify-content:center}
+.btn-orange:hover{background:#f59c0d}
+.btn-success{background:var(--tertiary-container);color:white;border:none;border-radius:var(--r-full);padding:16px 48px;font-size:18px;font-weight:600;font-family:'Rubik',sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:all .15s}
+.btn-success:hover{background:#005236;box-shadow:var(--shadow-lg)}
+.btn-ai{background:var(--primary-container);color:white;border:none;border-radius:var(--r-full);padding:16px 48px;font-size:18px;font-weight:600;font-family:'Rubik',sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:all .15s}
+.btn-ai:hover{background:#1a52c8;box-shadow:var(--shadow-lg)}
+
+/* GRAPH+Q LAYOUT */
+.gq-layout{display:grid;grid-template-columns:380px 1fr;gap:32px;padding:32px 0 48px;align-items:start}
+.q-col{}
+.q-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:var(--r-xl);padding:20px;margin-bottom:14px}
+.q-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--surface-container);border-radius:50%;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:10px}
+.q-text{font-size:16px;font-weight:500;color:var(--on-surface);margin-bottom:12px;line-height:1.5}
+.q-inp{width:100%;border:2px solid var(--outline-variant);border-radius:var(--r-md);padding:10px 14px;font-size:15px;font-family:'Rubik',sans-serif;color:var(--on-surface);background:var(--surface);direction:rtl;transition:border .15s}
+.q-inp:focus{outline:none;border-color:var(--primary)}
+.q-fb{display:none;margin-top:8px;padding:8px 12px;border-radius:var(--r-md);font-size:14px;font-weight:500;align-items:center;gap:6px}
+.q-fb.ok{background:#e8f5e9;color:#1b5e20}
+.q-fb.no{background:#ffebee;color:#b71c1c}
+.check-wrap{text-align:center;padding:24px 0 8px}
+
+/* GRAPH CARD */
+.graph-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:var(--r-xl);padding:24px}
+.graph-card-title{font-size:17px;font-weight:700;text-align:center;margin-bottom:12px;color:var(--on-surface)}
+.legend-box{display:inline-flex;align-items:center;gap:10px;background:var(--surface-low);border:1.5px dashed var(--outline-variant);border-radius:var(--r-md);padding:10px 18px;font-size:15px;font-weight:600;margin-bottom:16px}
+/* עטיפת הגרף — direction:ltr כדי ש-y-label יופיע תמיד משמאל */
+.pict-wrap{display:flex;align-items:stretch;gap:0;direction:ltr}
+.m-chart-wrap{display:flex;align-items:stretch;gap:0;direction:ltr}
+.y-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:13px;color:var(--on-surface-variant);font-weight:500;padding-right:8px;white-space:nowrap;align-self:center;flex-shrink:0}
+.chart-inner{flex:1;direction:rtl}
+/* עמודות — ציר שמאל ותחתון */
+.chart-cols{display:flex;align-items:flex-end;gap:12px;border-bottom:2.5px solid var(--on-surface);border-left:2.5px solid var(--on-surface);padding:16px 16px 0 16px;min-height:200px;direction:rtl}
+.chart-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:50px}
+.e-stack{display:flex;flex-direction:column-reverse;align-items:center;gap:1px;flex:1}
+.e-full{font-size:22px;line-height:1.15;display:block}
+.e-half{font-size:22px;line-height:1.15;display:block;clip-path:inset(0 50% 0 0)}
+/* כותרות מתחת לציר X */
+.x-labels{display:flex;gap:12px;padding:6px 16px 0 16px;direction:rtl}
+.x-lbl{flex:1;min-width:50px;font-size:12px;font-weight:500;color:var(--on-surface-variant);text-align:center}
+
+/* BUILDER LAYOUT */
+.builder-layout{display:grid;grid-template-columns:1fr 340px;gap:28px;padding:32px 0 48px;align-items:start}
+.builder-sidebar{display:flex;flex-direction:column;gap:18px}
+.sidebar-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:var(--r-xl);padding:20px}
+.sidebar-card h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.step-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--primary);color:white;border-radius:50%;font-size:12px;font-weight:700;flex-shrink:0}
+.emoji-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.e-opt{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid var(--outline-variant);border-radius:var(--r-md);cursor:pointer;transition:all .15s;background:var(--surface)}
+.e-opt:hover{border-color:var(--primary)}
+.e-opt.sel{border-color:var(--primary);background:var(--surface-container);box-shadow:0 0 0 3px rgba(0,74,198,.12)}
+.val-row{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:var(--r-md);padding:12px}
+.val-input{width:70px;border:2px solid var(--outline-variant);border-radius:var(--r-md);padding:8px;font-size:16px;font-family:'Rubik',sans-serif;text-align:center;font-weight:700;color:var(--on-surface)}
+.val-input:focus{outline:none;border-color:var(--primary)}
+.half-note{font-size:12px;color:var(--on-surface-variant);margin-top:8px;display:flex;align-items:center;gap:4px}
+
+/* DATA BANNER */
+.data-banner{background:var(--surface-low);border:1.5px solid var(--outline-variant);border-radius:var(--r-xl);padding:20px;margin-bottom:20px}
+.data-table{width:100%;border-collapse:collapse;margin-top:12px}
+.data-table th{background:var(--primary);color:white;font-size:14px;font-weight:600;padding:10px 16px;text-align:right}
+.data-table th:first-child{border-radius:0 6px 0 0}
+.data-table th:last-child{border-radius:6px 0 0 0}
+.data-table td{border-bottom:1px solid var(--outline-variant);padding:10px 16px;font-size:15px;text-align:right}
+.data-table td:last-child{font-weight:700;color:var(--primary)}
+
+/* MANUAL CHART */
+.manual-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:var(--r-xl);padding:24px}
+.manual-card h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.m-badge{background:var(--surface-container);color:var(--primary);font-size:12px;font-weight:600;padding:3px 10px;border-radius:var(--r-full)}
+/* מקרא מעל הגרף */
+.legend-strip{background:var(--surface-low);border:1.5px dashed var(--outline-variant);border-radius:var(--r-md);padding:10px 16px;margin-bottom:14px;display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.m-chart-wrap{display:flex;align-items:stretch;gap:0}
+/* עמודות: ציר שמאל */
+.m-cols{display:flex;align-items:flex-end;gap:10px;border-bottom:2.5px solid var(--on-surface);border-left:2.5px solid var(--on-surface);padding:16px 12px 0 12px;min-height:200px;flex:1;direction:rtl}
+.m-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:55px}
+.m-stack{display:flex;flex-direction:column-reverse;align-items:center;gap:1px;min-height:30px;flex:1}
+/* שורת כותרות + כפתורים מתחת לציר */
+.m-below{display:flex;gap:10px;padding:6px 12px 0 12px;direction:rtl}
+.m-below-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:55px}
+.m-lbl{font-size:12px;font-weight:500;color:var(--on-surface-variant);text-align:center}
+.col-controls{display:flex;flex-direction:column;align-items:center;gap:4px}
+.ctrl{width:32px;height:32px;border-radius:var(--r-md);border:none;font-size:15px;font-weight:700;cursor:pointer;font-family:'Rubik',sans-serif;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.ctrl-add{background:var(--primary);color:white}
+.ctrl-add:hover{background:#003a9e}
+.ctrl-half{background:var(--tertiary-container);color:white;font-size:11px;font-weight:700}
+.ctrl-half:hover{background:#005236}
+.ctrl-rm{background:var(--surface-high);color:var(--on-surface-variant);font-size:18px}
+.ctrl-rm:hover{background:#ffdad6;color:var(--error)}
+
+/* FREE BUILD */
+.free-layout{display:grid;grid-template-columns:1fr 340px;gap:28px;padding:32px 0 48px;align-items:start}
+.top-inputs-card{background:var(--white);border:1.5px solid var(--outline-variant);border-radius:var(--r-xl);padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.inp-grp label{font-size:13px;font-weight:600;color:var(--on-surface-variant);margin-bottom:6px;display:block}
+.txt-inp{width:100%;border:2px solid var(--outline-variant);border-radius:var(--r-md);padding:10px 14px;font-size:15px;font-family:'Rubik',sans-serif;color:var(--on-surface);background:var(--surface);direction:rtl}
+.txt-inp:focus{outline:none;border-color:var(--primary)}
+.cat-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rm-cat{background:none;border:none;color:var(--error);font-size:18px;cursor:pointer;padding:4px;border-radius:var(--r-sm);flex-shrink:0;font-family:'Rubik',sans-serif}
+.add-cat{width:100%;border:2px dashed var(--outline-variant);background:none;border-radius:var(--r-md);padding:10px;font-size:14px;font-weight:600;color:var(--primary);cursor:pointer;font-family:'Rubik',sans-serif;transition:all .15s;margin-top:4px}
+.add-cat:hover{background:var(--surface-low);border-color:var(--primary)}
+
+/* AI */
+.ai-banner{background:linear-gradient(135deg,var(--surface-low),var(--surface-container));border:1.5px solid var(--surface-highest);border-radius:var(--r-lg);padding:12px 18px;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--primary)}
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid var(--outline-variant);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<script>
+const DATA={
+  graphs:[
+    {id:"animals",title:"חיות מחמד",desc:"ניתוח נתונים על חברים על ארבע",emoji:"🐶",color:"#e8f0ff",iconValue:1,iconLabel:"תלמיד",
+     rows:[{label:"כלבים",value:7},{label:"חתולים",value:5},{label:"ארנבים",value:3},{label:"ציפורים",value:6}],
+     questions:[{text:"כמה תלמידים בחרו כלבים?",answer:"7"},{text:"כמה תלמידים בחרו ארנבים?",answer:"3"},{text:"כמה יותר תלמידים בחרו כלבים מאשר חתולים?",answer:"2"},{text:"כמה תלמידים ענו בסך הכל?",answer:"21"}]},
+    {id:"fruits",title:"פירות אהובים",desc:"ספירת פירות וירקות בגרף סמלים",emoji:"🍎",color:"#fff3e0",iconValue:5,iconLabel:"פירות",
+     rows:[{label:"ראשון",value:20},{label:"שני",value:10},{label:"שלישי",value:30},{label:"רביעי",value:15},{label:"חמישי",value:25}],
+     questions:[{text:"כמה פירות נאספו ביום שלישי?",answer:"30"},{text:"באיזה יום נאספו בדיוק 20 פירות?",answer:"ראשון"},{text:"מה ההפרש בין יום חמישי ליום שני?",answer:"15"},{text:"כמה פירות נאספו בכל השבוע?",answer:"100"}]},
+    {id:"sports",title:"ספורט מועדף",desc:"משחקי כדור ופעילות גופנית בנתונים",emoji:"⚽",color:"#e8f5e9",iconValue:5,iconLabel:"תלמידים",
+     rows:[{label:"כדורגל",value:25},{label:"כדורסל",value:15},{label:"שחייה",value:10},{label:"טניס",value:5}],
+     questions:[{text:"כמה תלמידים בחרו כדורגל?",answer:"25"},{text:"כמה אייקונים יש בשורת כדורסל?",answer:"3"},{text:"מה ההפרש בין כדורגל לטניס?",answer:"20"},{text:"כמה תלמידים ענו בסך הכל?",answer:"55"}]}
+  ],
+  presetTasks:[
+    {id:"hobbies",title:"תחביבים אהובים",desc:"תחביבי תלמידים בכיתה",unit:"תלמידים",
+     rows:[{label:"ריקוד",value:15},{label:"ספורט",value:20},{label:"קריאה",value:10},{label:"ציור",value:25}],
+     questions:[{text:"איזה תחביב הכי פופולרי?",answer:"ציור"},{text:"כמה תלמידים בחרו ריקוד או ספורט?",answer:"35"},{text:"כמה תלמידים ענו בסך הכל?",answer:"70"}]},
+    {id:"siblings",title:"מספר האחים בכיתה",desc:"כמה אחים יש לכל תלמיד",unit:"תלמידים",
+     rows:[{label:"0 אחים",value:7},{label:"1 אח",value:4},{label:"2 אחים",value:8},{label:"3+",value:3}],
+     questions:[{text:"כמה תלמידים הם יחידים?",answer:"7"},{text:"מה הקטגוריה הנפוצה ביותר?",answer:"2 אחים"},{text:"כמה תלמידים יש בסך הכל?",answer:"22"}]}
+  ],
+  emojis:["⭐","😊","❤️","🐶","🍎","🏀","🚗","🌸","🎵","📚","🌟","🎯","🍕","🚀","🐟","🏠","🌈","⚽","🎨","🦋","🍉","📱","🎮","🐱","🏆"]
+};
+const S={
+  graph:null,task:null,
+  selEmoji:"⭐",iconVal:5,iconLabel:"יחידות",
+  manualCols:{},
+  freeCats:[{name:"קטגוריה 1"},{name:"קטגוריה 2"}],
+  freeCols:{},
+  freeEmoji:"⭐",freeVal:1,freeUnit:"",freeTopic:"",
+  aiQs:[]
+};
+</script>
+
+<!-- HOME -->
+<div id="s-home" class="screen active">
+  <div class="container">
+    <div class="hero">
+      <div class="hero-badge">מתמטיקה לכיתה ח׳</div>
+      <div class="hero-title">ברוכים הבאים ללמידת פיקטוגרמות!</div>
+      <div class="hero-sub">בואו לגלות איך נתונים הופכים לסיפור ויזואלי מרתק. כאן תלמדו לנתח, להבין וליצור גרפים מבוססי סמלים בצורה חווייתית.</div>
+    </div>
+    <div class="home-cards">
+      <div class="home-card type-b" onclick="go('s-tb')">
+        <div class="card-top">
+          <div class="card-icon-circle">📊</div>
+        </div>
+        <h2>בניית פיקטוגרמה</h2>
+        <p>הגיע הזמן ליצירתיות! אספו נתונים, בחרו סמלים מתאימים וצרו גרף משלכם מאפס. הפכו מידע יבש לתצוגה מרהיבה.</p>
+        <div class="card-cta">לפעילות</div>
+      </div>
+      <div class="home-card type-a" onclick="go('s-ta-list')">
+        <div class="card-top">
+          <div class="card-icon-circle">🔍</div>
+        </div>
+        <h2>קריאת פיקטוגרמה</h2>
+        <p>היכנסו לעולם הנתונים. נתחו גרפים קיימים, זהו את היחס בין הסמלים לערכים וענו על שאלות חקר מעמיקות.</p>
+        <div class="card-cta">לפעילות</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPE A LIST -->
+<div id="s-ta-list" class="screen">
+  <div class="topbar"><div class="topbar-logo">פיקטוגרמה</div><button class="back-btn" onclick="go('s-home')">חזרה →</button></div>
+  <div class="container">
+    <div class="page-header"><h1>קריאת פיקטוגרמה</h1><p>בחרו נושא כדי לתרגל קריאת נתונים והבנת גרפי סמלים.</p></div>
+    <div class="list-cards" id="ta-list"></div>
+  </div>
+</div>
+
+<!-- GRAPH + Q -->
+<div id="s-graph-q" class="screen">
+  <div class="topbar"><div class="topbar-logo" id="gq-title">פיקטוגרמה</div><button class="back-btn" onclick="go('s-ta-list')">חזרה →</button></div>
+  <div class="container">
+    <div class="gq-layout">
+      <div class="q-col">
+        <div id="q-list"></div>
+        <div class="check-wrap"><button class="btn-success" onclick="checkA('ta')">✓ בדיקת תשובות</button></div>
+      </div>
+      <div>
+        <div class="graph-card">
+          <div class="graph-card-title" id="gq-graph-title"></div>
+          <div class="legend-box" id="gq-legend"></div>
+          <div class="pict-wrap">
+            <div class="y-label" id="gq-ylabel"></div>
+            <div class="chart-inner" id="gq-chart-inner">
+              <div class="chart-cols" id="gq-cols"></div>
+              <div class="x-labels" id="gq-x-labels"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPE B CHOICE -->
+<div id="s-tb" class="screen">
+  <div class="topbar"><div class="topbar-logo">פיקטוגרמה</div><button class="back-btn" onclick="go('s-home')">חזרה →</button></div>
+  <div class="container">
+    <div class="page-header"><h1>בניית פיקטוגרמה</h1><p>בחרו את סוג הפעילות שברצונכם לבצע.</p></div>
+    <div class="tb-cards">
+      <div class="tb-card preset" onclick="go('s-preset-list')">
+        <div class="big-icon">📋</div>
+        <h2>נתונים מוכנים</h2>
+        <p>קבל טבלת נתונים מוכנה ובנה ממנה פיקטוגרמה ידנית.</p>
+        <button class="btn-primary" onclick="event.stopPropagation();go('s-preset-list')">📊 תרגל עכשיו</button>
+      </div>
+      <div class="tb-card free" onclick="go('s-free-build')">
+        <div class="big-icon">💡</div>
+        <h2>נתונים חופשיים</h2>
+        <p>בחר נושא, המצא נתונים ובנה פיקטוגרמה משלך. ה-AI יצר שאלות!</p>
+        <button class="btn-orange" onclick="event.stopPropagation();go('s-free-build')">✏️ התחל ליצור</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRESET LIST -->
+<div id="s-preset-list" class="screen">
+  <div class="topbar"><div class="topbar-logo">נתונים מוכנים</div><button class="back-btn" onclick="go('s-tb')">חזרה →</button></div>
+  <div class="container">
+    <div class="page-header"><h1>בחרו משימה</h1><p>בחרו נושא, בנו את הפיקטוגרמה לפי הנתונים וענו על השאלות.</p></div>
+    <div class="list-cards" id="preset-list"></div>
+  </div>
+</div>
+
+<!-- PRESET BUILD -->
+<div id="s-preset-build" class="screen">
+  <div class="topbar"><div class="topbar-logo" id="pb-title">בניית פיקטוגרמה</div><button class="back-btn" onclick="go('s-preset-list')">חזרה →</button></div>
+  <div class="container">
+    <div class="builder-layout">
+      <div>
+        <div class="data-banner">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:22px">📊</span>
+            <div>
+              <div style="font-size:16px;font-weight:700" id="pb-task-title"></div>
+              <div style="font-size:13px;color:var(--on-surface-variant)">בנה את הפיקטוגרמה לפי הנתונים הבאים</div>
+            </div>
+          </div>
+          <table class="data-table" id="pb-data-tbl"></table>
+        </div>
+        <div class="manual-card">
+          <h3><span class="step-badge">3</span> בניית הפיקטוגרמה <span class="m-badge">בנייה ידנית</span></h3>
+          <div class="legend-strip">מקרא: <span id="pb-leg-e">⭐</span> = <span id="pb-leg-v">5</span> <span id="pb-leg-u">יחידות</span></div>
+          <div class="m-chart-wrap">
+            <div class="y-label" id="pb-ylabel">כמות</div>
+            <div style="flex:1">
+              <div class="m-cols" id="pb-cols"></div>
+              <div class="m-below" id="pb-below"></div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:24px">
+          <button class="btn-success" onclick="checkGraph()">✓ בדוק את הגרף שלי</button>
+        </div>
+        <div id="graph-check-result" style="display:none;margin-top:20px;border-radius:var(--r-xl);padding:20px;font-size:15px;line-height:1.8"></div>
+      </div>
+      <div class="builder-sidebar">
+        <div class="sidebar-card">
+          <h3><span class="step-badge">1</span> בחירת סמל</h3>
+          <div class="emoji-grid" id="pb-emoji-grid"></div>
+        </div>
+        <div class="sidebar-card">
+          <h3><span class="step-badge">2</span> ערך הסמל</h3>
+          <div class="val-row">
+            <span style="font-size:28px" id="pb-e-preview">⭐</span>
+            <span style="color:var(--on-surface-variant);font-size:18px">=</span>
+            <input class="val-input" type="number" id="pb-ival" value="5" min="1" oninput="pbUpdateVal()">
+            <span style="font-size:14px;color:var(--on-surface-variant)" id="pb-unit-disp">יחידות</span>
+          </div>
+          <div class="half-note">ℹ️ ניתן להשתמש גם בחצי סמל</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FREE BUILD -->
+<div id="s-free-build" class="screen">
+  <div class="topbar"><div class="topbar-logo">נתונים חופשיים</div><button class="back-btn" onclick="go('s-tb')">חזרה →</button></div>
+  <div class="container">
+    <div class="free-layout">
+      <div>
+        <div class="top-inputs-card">
+          <div class="inp-grp"><label>מה נושא הגרף?</label><input class="txt-inp" type="text" id="free-topic" placeholder="למשל: סקר פירות מועדפים" oninput="S.freeTopic=this.value"></div>
+          <div class="inp-grp"><label>מה היחידה?</label><input class="txt-inp" type="text" id="free-unit" placeholder="למשל: תלמידים, פעמים" oninput="S.freeUnit=this.value;fbUpdateUnit()"></div>
+        </div>
+        <div class="manual-card">
+          <h3><span class="step-badge">4</span> אזור בנייה</h3>
+          <div class="legend-strip">מקרא: <span id="free-leg-e">⭐</span> = <span id="free-leg-v">1</span> <span id="free-leg-u">יחידות</span></div>
+          <div class="m-chart-wrap">
+            <div class="y-label" id="free-ylabel">כמות</div>
+            <div style="flex:1">
+              <div class="m-cols" id="free-cols"></div>
+              <div class="m-below" id="free-below"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="builder-sidebar">
+        <div class="sidebar-card">
+          <h3><span class="step-badge">1</span> הגדרת קטגוריות</h3>
+          <div id="free-cats"></div>
+          <button class="add-cat" onclick="addCat()">+ הוסף קטגוריה</button>
+        </div>
+        <div class="sidebar-card">
+          <h3><span class="step-badge">2</span> בחירת סמל</h3>
+          <div class="emoji-grid" id="free-emoji-grid"></div>
+        </div>
+        <div class="sidebar-card">
+          <h3><span class="step-badge">3</span> ערך הסמל</h3>
+          <div class="val-row">
+            <span style="font-size:28px" id="free-e-preview">⭐</span>
+            <span style="color:var(--on-surface-variant);font-size:18px">=</span>
+            <input class="val-input" type="number" id="free-ival" value="1" min="1" oninput="S.freeVal=parseInt(this.value)||1;fbUpdateLegend()">
+            <span style="font-size:14px;color:var(--on-surface-variant)" id="free-unit-disp">יחידות</span>
+          </div>
+          <div class="half-note">ℹ️ ניתן להשתמש גם בחצי סמל</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AI QUESTIONS -->
+<div id="s-ai-q" class="screen">
+  <div class="topbar"><div class="topbar-logo">שאלות על הגרף שלך</div><button class="back-btn" onclick="go('s-free-build')">חזרה →</button></div>
+  <div class="container">
+    <div class="gq-layout">
+      <div class="q-col">
+        <div class="ai-banner" id="ai-banner"><div class="spinner" id="ai-spin"></div><span id="ai-txt">יוצר שאלות מותאמות...</span></div>
+        <div id="ai-q-list"></div>
+        <div class="check-wrap" id="ai-check" style="display:none"><button class="btn-ai" onclick="checkA('ai')">✓ בדיקת תשובות</button></div>
+      </div>
+      <div>
+        <div class="graph-card">
+          <div class="graph-card-title" id="ai-graph-title"></div>
+          <div class="legend-box" id="ai-legend"></div>
+          <div class="pict-wrap">
+            <div class="y-label" id="ai-ylabel"></div>
+            <div class="chart-inner">
+              <div class="chart-cols" id="ai-cols"></div>
+              <div class="x-labels" id="ai-x-labels"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function eStack(full,half,emoji){
+  let h='';
+  for(let i=0;i<full;i++)h+=`<span class="e-full">${emoji}</span>`;
+  if(half)h+=`<span class="e-half">${emoji}</span>`;
+  return h;
+}
+function calcEmoji(val,iv){return{full:Math.floor(val/iv),half:(val%iv)>=(iv/2)};}
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='s-ta-list')renderTAList();
+  if(id==='s-preset-list')renderPresetList();
+  if(id==='s-preset-build')renderPresetBuild();
+  if(id==='s-free-build')renderFreeBuild();
+}
+
+function checkGraph(){
+  if(!S.task)return;
+  const t=S.task;
+  const iv=S.iconVal||1;
+  let allOk=true;
+  let html='';
+  t.rows.forEach(r=>{
+    const col=S.manualCols[r.label]||{full:0,half:false};
+    const built=(col.full+(col.half?0.5:0))*iv;
+    const ok=built===r.value;
+    if(!ok)allOk=false;
+    const icon=ok?'✅':'❌';
+    html+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <span style="font-size:18px">${icon}</span>
+      <span style="font-weight:600">${r.label}:</span>
+      <span>בנית <strong>${built}</strong> — נכון: <strong>${r.value}</strong></span>
+    </div>`;
+  });
+  const res=document.getElementById('graph-check-result');
+  res.style.display='block';
+  if(allOk){
+    res.style.background='#e8f5e9';res.style.border='1.5px solid #a5d6a7';
+    res.innerHTML=`<div style="font-size:17px;font-weight:700;color:#1b5e20;margin-bottom:12px">🎉 מעולה! הגרף שלך נכון לחלוטין!</div>${html}`;
+  }else{
+    res.style.background='#fff8e1';res.style.border='1.5px solid #ffe082';
+    res.innerHTML=`<div style="font-size:17px;font-weight:700;color:#e65100;margin-bottom:12px">⚠️ יש כמה שגיאות — בדוק שוב:</div>${html}`;
+  }
+  res.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* TYPE A */
+function renderTAList(){
+  document.getElementById('ta-list').innerHTML=DATA.graphs.map(g=>`
+    <div class="list-card" onclick="openGraph('${g.id}')">
+      <div class="list-emoji" style="background:${g.color}">${g.emoji}</div>
+      <div class="list-info"><h3>${g.title}</h3><p>${g.desc}</p></div>
+      <div class="list-arrow">‹</div>
+    </div>`).join('');
+}
+
+function openGraph(id){
+  S.graph=DATA.graphs.find(g=>g.id===id);
+  const g=S.graph;
+  document.getElementById('gq-title').textContent=g.title;
+  document.getElementById('gq-graph-title').textContent=g.title;
+  document.getElementById('gq-legend').innerHTML=`${g.emoji} = ${g.iconValue} ${g.iconLabel}`;
+  document.getElementById('gq-ylabel').textContent=`מספר ${g.iconLabel}`;
+  document.getElementById('gq-cols').innerHTML=g.rows.map(r=>{
+    const {full,half}=calcEmoji(r.value,g.iconValue);
+    return`<div class="chart-col"><div class="e-stack">${eStack(full,half,g.emoji)}</div></div>`;
+  }).join('');
+  document.getElementById('gq-x-labels').innerHTML=g.rows.map(r=>`<div class="x-lbl">${r.label}</div>`).join('');
+  document.getElementById('q-list').innerHTML=g.questions.map((q,i)=>`
+    <div class="q-card"><div class="q-num">${i+1}</div><div class="q-text">${q.text}</div>
+    <input class="q-inp" type="text" placeholder="הקלידו תשובה..." id="ta-a-${i}">
+    <div class="q-fb" id="ta-fb-${i}"></div></div>`).join('');
+  go('s-graph-q');
+}
+
+/* CHECK */
+function checkA(mode){
+  const map={ta:{qs:()=>S.graph.questions,ip:'ta-a-',fb:'ta-fb-'},preset:{qs:()=>S.task.questions,ip:'pq-a-',fb:'pq-fb-'},ai:{qs:()=>S.aiQs,ip:'ai-a-',fb:'ai-fb-'}};
+  const m=map[mode];
+  m.qs().forEach((q,i)=>{
+    const inp=document.getElementById(m.ip+i);
+    const fbEl=document.getElementById(m.fb+i);
+    if(!inp||!fbEl)return;
+    const v=inp.value.trim();
+    const ok=v.toLowerCase()===q.answer.toLowerCase()||Number(v)===Number(q.answer);
+    fbEl.className='q-fb '+(ok?'ok':'no');
+    fbEl.style.display='flex';
+    fbEl.textContent=ok?`✓ נכון! התשובה: ${q.answer}`:`✗ לא מדויק. התשובה: ${q.answer}`;
+  });
+}
+
+/* PRESET LIST */
+function renderPresetList(){
+  document.getElementById('preset-list').innerHTML=DATA.presetTasks.map(t=>`
+    <div class="list-card" onclick="openPreset('${t.id}')">
+      <div class="list-emoji" style="background:var(--surface-container)">📊</div>
+      <div class="list-info"><h3>${t.title}</h3><p>${t.desc}</p></div>
+      <div class="list-arrow">‹</div>
+    </div>`).join('');
+}
+
+function openPreset(id){
+  S.task=DATA.presetTasks.find(t=>t.id===id);
+  S.manualCols={};
+  S.task.rows.forEach(r=>{S.manualCols[r.label]={full:0,half:false}});
+  S.iconLabel=S.task.unit||'יחידות';
+  go('s-preset-build');
+}
+
+/* PRESET BUILD */
+function renderPresetBuild(){
+  if(!S.task)return;
+  const t=S.task;
+  document.getElementById('pb-title').textContent=`בניית פיקטוגרמה — ${t.title}`;
+  document.getElementById('pb-task-title').textContent=t.title;
+  document.getElementById('pb-unit-disp').textContent=t.unit||'יחידות';
+  document.getElementById('pb-ylabel').textContent=t.unit||'כמות';
+  document.getElementById('pb-data-tbl').innerHTML=`<tr><th>קטגוריה</th><th>כמות</th></tr>${t.rows.map(r=>`<tr><td>${r.label}</td><td>${r.value}</td></tr>`).join('')}`;
+  renderEGrid('pb-emoji-grid',e=>{S.selEmoji=e;pbUpdateVal();renderPBCols();},S.selEmoji);
+  renderPBCols();pbUpdateVal();
+}
+
+function renderEGrid(containerId,cb,sel){
+  document.getElementById(containerId).innerHTML=DATA.emojis.map(e=>`
+    <div class="e-opt${e===sel?' sel':''}" onclick="
+      document.querySelectorAll('#${containerId} .e-opt').forEach(x=>x.classList.remove('sel'));
+      this.classList.add('sel');
+      (${cb.toString()})(this.textContent.trim())
+    ">${e}</div>`).join('');
+}
+
+function renderPBCols(){
+  // עמודות בלבד (ללא כותרות וכפתורים בתוך הציר)
+  document.getElementById('pb-cols').innerHTML=S.task.rows.map(r=>{
+    const col=S.manualCols[r.label]||{full:0,half:false};
+    return`<div class="m-col"><div class="m-stack">${eStack(col.full,col.half,S.selEmoji)}</div></div>`;
+  }).join('');
+  // שורת כותרות + כפתורים מתחת לציר
+  const belowEl=document.getElementById('pb-below');
+  if(belowEl){
+    belowEl.innerHTML=S.task.rows.map(r=>{
+      const esc=r.label.replace(/'/g,"\\'");
+      return`<div class="m-below-col">
+        <div class="m-lbl">${r.label}</div>
+        <div class="col-controls">
+          <button class="ctrl ctrl-add" onclick="adjPB('${esc}','add')">+</button>
+          <button class="ctrl ctrl-half" onclick="adjPB('${esc}','half')">½</button>
+          <button class="ctrl ctrl-rm" onclick="adjPB('${esc}','rm')">−</button>
+        </div></div>`;
+    }).join('');
+  }
+}
+
+function adjPB(lbl,act){
+  if(!S.manualCols[lbl])S.manualCols[lbl]={full:0,half:false};
+  const c=S.manualCols[lbl];
+  if(act==='add'){if(c.half){c.half=false;c.full++;}else c.full++;}
+  else if(act==='half')c.half=!c.half;
+  else if(act==='rm'){if(c.half)c.half=false;else if(c.full>0)c.full--;}
+  renderPBCols();pbUpdateVal();
+}
+
+function pbUpdateVal(){
+  S.iconVal=parseInt(document.getElementById('pb-ival').value)||1;
+  document.getElementById('pb-e-preview').textContent=S.selEmoji;
+  document.getElementById('pb-leg-e').textContent=S.selEmoji;
+  document.getElementById('pb-leg-v').textContent=S.iconVal;
+  document.getElementById('pb-leg-u').textContent=S.iconLabel;
+}
+
+/* FREE BUILD */
+function renderFreeBuild(){
+  S.freeCols={};
+  S.freeCats.forEach(c=>{S.freeCols[c.name]={full:0,half:false}});
+  renderFreeCats();
+  renderEGrid('free-emoji-grid',e=>{S.freeEmoji=e;document.getElementById('free-e-preview').textContent=e;fbUpdateLegend();renderFreeCols();},S.freeEmoji);
+  renderFreeCols();fbUpdateLegend();
+}
+
+function renderFreeCats(){
+  document.getElementById('free-cats').innerHTML=S.freeCats.map((c,i)=>`
+    <div class="cat-row">
+      <input class="txt-inp" type="text" value="${c.name}" placeholder="שם קטגוריה" oninput="renameCat(${i},this.value)">
+      <button class="rm-cat" onclick="rmCat(${i})">🗑</button>
+    </div>`).join('');
+}
+
+function addCat(){
+  if(S.freeCats.length>=6)return;
+  const n=`קטגוריה ${S.freeCats.length+1}`;
+  S.freeCats.push({name:n});S.freeCols[n]={full:0,half:false};
+  renderFreeCats();renderFreeCols();
+}
+
+function rmCat(i){
+  if(S.freeCats.length<=2)return;
+  delete S.freeCols[S.freeCats[i].name];
+  S.freeCats.splice(i,1);
+  renderFreeCats();renderFreeCols();
+}
+
+function renameCat(i,nv){
+  const old=S.freeCats[i].name;
+  const col=S.freeCols[old]||{full:0,half:false};
+  delete S.freeCols[old];
+  S.freeCats[i].name=nv;S.freeCols[nv]=col;
+  renderFreeCols();
+}
+
+function renderFreeCols(){
+  // עמודות בלבד
+  document.getElementById('free-cols').innerHTML=S.freeCats.map(c=>{
+    const col=S.freeCols[c.name]||{full:0,half:false};
+    return`<div class="m-col"><div class="m-stack">${eStack(col.full,col.half,S.freeEmoji)}</div></div>`;
+  }).join('');
+  // שורת כותרות + כפתורים מתחת
+  const fb=document.getElementById('free-below');
+  if(fb){
+    fb.innerHTML=S.freeCats.map(c=>{
+      const esc=c.name.replace(/'/g,"\\'");
+      return`<div class="m-below-col">
+        <div class="m-lbl">${c.name}</div>
+        <div class="col-controls">
+          <button class="ctrl ctrl-add" onclick="adjFree('${esc}','add')">+</button>
+          <button class="ctrl ctrl-half" onclick="adjFree('${esc}','half')">½</button>
+          <button class="ctrl ctrl-rm" onclick="adjFree('${esc}','rm')">−</button>
+        </div></div>`;
+    }).join('');
+  }
+}
+
+function adjFree(name,act){
+  if(!S.freeCols[name])S.freeCols[name]={full:0,half:false};
+  const c=S.freeCols[name];
+  if(act==='add'){if(c.half){c.half=false;c.full++;}else c.full++;}
+  else if(act==='half')c.half=!c.half;
+  else if(act==='rm'){if(c.half)c.half=false;else if(c.full>0)c.full--;}
+  renderFreeCols();
+}
+
+function fbUpdateUnit(){
+  document.getElementById('free-unit-disp').textContent=S.freeUnit||'יחידות';
+  document.getElementById('free-ylabel').textContent=S.freeUnit||'כמות';
+  fbUpdateLegend();
+}
+
+function fbUpdateLegend(){
+  document.getElementById('free-leg-e').textContent=S.freeEmoji;
+  document.getElementById('free-leg-v').textContent=S.freeVal;
+  document.getElementById('free-leg-u').textContent=S.freeUnit||'יחידות';
+  document.getElementById('free-e-preview').textContent=S.freeEmoji;
+}
+
+/* AI */
+async function genAI(){
+  go('s-ai-q');
+  document.getElementById('ai-graph-title').textContent=S.freeTopic||'הגרף שלי';
+  document.getElementById('ai-legend').innerHTML=`${S.freeEmoji} = ${S.freeVal} ${S.freeUnit||'יחידות'}`;
+  document.getElementById('ai-ylabel').textContent=S.freeUnit||'כמות';
+  document.getElementById('ai-cols').innerHTML=S.freeCats.map(c=>{
+    const col=S.freeCols[c.name]||{full:0,half:false};
+    return`<div class="chart-col"><div class="e-stack">${eStack(col.full,col.half,S.freeEmoji)}</div></div>`;
+  }).join('');
+  document.getElementById('ai-x-labels').innerHTML=S.freeCats.map(c=>`<div class="x-lbl">${c.name}</div>`).join('');
+  const rows=S.freeCats.map(c=>{
+    const col=S.freeCols[c.name]||{full:0,half:false};
+    return`${c.name}: ${(col.full+(col.half?.5:0))*S.freeVal}`;
+  }).join(', ');
+  const prompt=`אתה מורה למתמטיקה לכיתה ח בישראל. התלמיד יצר פיקטוגרמה:
+נושא: ${S.freeTopic||'לא צוין'}, יחידה: ${S.freeUnit||'יחידות'}, נתונים: ${rows}, כל אייקון = ${S.freeVal} ${S.freeUnit||'יחידות'}.
+צור 3 שאלות מתמטיות: קריאת ערך, השוואה, חישוב. החזר JSON בלבד ללא markdown:
+[{"text":"...","answer":"..."},{"text":"...","answer":"..."},{"text":"...","answer":"..."}]`;
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:800,messages:[{role:"user",content:prompt}]})});
+    const d=await r.json();
+    S.aiQs=JSON.parse(d.content[0].text.trim().replace(/```json|```/g,'').trim());
+  }catch(e){
+    S.aiQs=[
+      {text:`מה הקטגוריה עם הערך הגבוה ביותר?`,answer:S.freeCats.reduce((a,b)=>(S.freeCols[a.name]||{full:0}).full>(S.freeCols[b.name]||{full:0}).full?a:b).name},
+      {text:`מה סך כל הערכים בגרף?`,answer:String(S.freeCats.reduce((s,c)=>{const col=S.freeCols[c.name]||{full:0,half:false};return s+(col.full+(col.half?.5:0))*S.freeVal;},0))},
+      {text:`כמה קטגוריות יש בגרף?`,answer:String(S.freeCats.length)}
+    ];
+  }
+  document.getElementById('ai-spin').style.display='none';
+  document.getElementById('ai-txt').textContent='✨ AI יצר שאלות מותאמות לגרף שלך';
+  document.getElementById('ai-q-list').innerHTML=S.aiQs.map((q,i)=>`
+    <div class="q-card"><div class="q-num">${i+1}</div><div class="q-text">${q.text}</div>
+    <input class="q-inp" type="text" placeholder="הקלידו תשובה..." id="ai-a-${i}">
+    <div class="q-fb" id="ai-fb-${i}"></div></div>`).join('');
+  document.getElementById('ai-check').style.display='block';
+}
+
+renderTAList();renderPresetList();
+</script>
+</body>
+</html>
