@@ -185,25 +185,46 @@ body{font-family:'Rubik',sans-serif;background:var(--surface);color:var(--on-sur
 <script>
 const DATA={
   graphs:[
-    {id:"animals",title:"חיות מחמד",desc:"ניתוח נתונים על חברים על ארבע",emoji:"icons/dog.svg",color:"#e8f0ff",iconValue:1,iconLabel:"תלמיד",
-     rows:[{label:"כלבים",value:7},{label:"חתולים",value:5},{label:"ארנבים",value:3},{label:"ציפורים",value:6}],
-     questions:[{text:"כמה תלמידים בחרו כלבים?",answer:"7"},{text:"כמה תלמידים בחרו ארנבים?",answer:"3"},{text:"כמה יותר תלמידים בחרו כלבים מאשר חתולים?",answer:"2"},{text:"כמה תלמידים ענו בסך הכל?",answer:"21"}]},
-    {id:"fruits",title:"פירות אהובים",desc:"ספירת פירות וירקות בגרף סמלים",emoji:"icons/apple.svg",color:"#fff3e0",iconValue:5,iconLabel:"פירות",
-     rows:[{label:"ראשון",value:20},{label:"שני",value:10},{label:"שלישי",value:30},{label:"רביעי",value:15},{label:"חמישי",value:25}],
-     questions:[{text:"כמה פירות נאספו ביום שלישי?",answer:"30"},{text:"באיזה יום נאספו בדיוק 20 פירות?",answer:"ראשון"},{text:"מה ההפרש בין יום חמישי ליום שני?",answer:"15"},{text:"כמה פירות נאספו בכל השבוע?",answer:"100"}]},
-    {id:"sports",title:"ספורט מועדף",desc:"משחקי כדור ופעילות גופנית בנתונים",emoji:"icons/ball.svg",color:"#e8f5e9",iconValue:5,iconLabel:"תלמידים",
-     rows:[{label:"כדורגל",value:25},{label:"כדורסל",value:15},{label:"שחייה",value:10},{label:"טניס",value:5}],
-     questions:[{text:"כמה תלמידים בחרו כדורגל?",answer:"25"},{text:"כמה אייקונים יש בשורת כדורסל?",answer:"3"},{text:"מה ההפרש בין כדורגל לטניס?",answer:"20"},{text:"כמה תלמידים ענו בסך הכל?",answer:"55"}]}
+    {id:"weather",title:"מזג האוויר החודש",desc:"התפלגות ימי מזג האוויר ב-30 הימים האחרונים",emoji:"icons/sun.svg",color:"#fff8e1",iconValue:3,iconLabel:"ימים",
+     rows:[{label:"שמש",value:12},{label:"מעונן חלקית",value:9},{label:"גשם",value:6},{label:"רוחות חזקות",value:3}],
+     questions:[{text:"כמה ימי שמש היו החודש?",answer:"12"},{text:"כמה אייקונים יש בשורת גשם?",answer:"2"},{text:"כמה יותר ימי שמש מאשר ימי גשם?",answer:"6"},{text:"כמה ימים נספרו בסך הכל?",answer:"30"}]},
+    {id:"recycle",title:"מיחזור בבית הספר",desc:"כמויות הפסולת שנאספה בסוגים שונים",emoji:"icons/recycle.svg",color:"#e8f5e9",iconValue:10,iconLabel:"ק״ג",
+     rows:[{label:"נייר וקרטון",value:50},{label:"פלסטיק",value:40},{label:"מתכות ופחיות",value:30},{label:"זכוכית",value:20},{label:"פסולת אלקטרונית",value:10}],
+     questions:[{text:"כמה ק״ג של נייר וקרטון נאספו?",answer:"50"},{text:"כמה אייקונים יש בשורת פלסטיק?",answer:"4"},{text:"כמה יותר ק״ג של נייר מאשר זכוכית?",answer:"30"},{text:"כמה ק״ג פסולת נאספה בסך הכל?",answer:"150"}]},
+    {id:"hobbies_read",title:"חוגים בשכונה",desc:"רישום ילדים לחוגי אחר הצהריים",emoji:"icons/art.svg",color:"#fce4ec",iconValue:5,iconLabel:"משתתפים",
+     rows:[{label:"דרמה ותיאטרון",value:25},{label:"אמנות ויצירה",value:20},{label:"שחמט",value:15}],
+     questions:[{text:"לאיזה חוג נרשמו הכי הרבה ילדים?",answer:"דרמה ותיאטרון"},{text:"כמה אייקונים יש בשורת שחמט?",answer:"3"},{text:"כמה יותר ילדים בחוג דרמה מאשר שחמט?",answer:"10"},{text:"כמה ילדים נרשמו לחוגים בסך הכל?",answer:"60"}]},
+    {id:"cars",title:"צבעי מכוניות בחניון",desc:"צבעי המכוניות שנכנסו בשעה הראשונה",emoji:"icons/car.svg",color:"#e8f0ff",iconValue:5,iconLabel:"מכוניות",
+     rows:[{label:"לבן",value:35},{label:"שחור",value:25},{label:"אפור",value:20},{label:"כחול",value:15},{label:"כסף",value:15},{label:"אדום",value:10}],
+     questions:[{text:"איזה צבע הכי נפוץ?",answer:"לבן"},{text:"כמה אייקונים יש בשורת שחור?",answer:"5"},{text:"כמה יותר מכוניות לבנות מאשר אדומות?",answer:"25"},{text:"כמה מכוניות נכנסו בסך הכל?",answer:"120"}]},
+    {id:"icecream",title:"טעמי גלידה בגלידריה",desc:"כמויות הגלידה הנמכרות בשעות הצהריים",emoji:"icons/icecream.svg",color:"#fce4ec",iconValue:5,iconLabel:"מנות",
+     rows:[{label:"שוקולד",value:45},{label:"וניל",value:30},{label:"תות",value:15},{label:"פיסטוק",value:10}],
+     questions:[{text:"איזה טעם הכי נמכר?",answer:"שוקולד"},{text:"כמה אייקונים יש בשורת וניל?",answer:"6"},{text:"כמה יותר מנות שוקולד מאשר פיסטוק?",answer:"35"},{text:"כמה מנות נמכרו בסך הכל?",answer:"100"}]}
   ],
   presetTasks:[
-    {id:"hobbies",title:"תחביבים אהובים",desc:"תחביבי תלמידים בכיתה",unit:"תלמידים",
-     rows:[{label:"ריקוד",value:15},{label:"ספורט",value:20},{label:"קריאה",value:10},{label:"ציור",value:25}],
-     questions:[{text:"איזה תחביב הכי פופולרי?",answer:"ציור"},{text:"כמה תלמידים בחרו ריקוד או ספורט?",answer:"35"},{text:"כמה תלמידים ענו בסך הכל?",answer:"70"}]},
-    {id:"siblings",title:"מספר האחים בכיתה",desc:"כמה אחים יש לכל תלמיד",unit:"תלמידים",
-     rows:[{label:"0 אחים",value:7},{label:"1 אח",value:4},{label:"2 אחים",value:8},{label:"3+",value:3}],
-     questions:[{text:"כמה תלמידים הם יחידים?",answer:"7"},{text:"מה הקטגוריה הנפוצה ביותר?",answer:"2 אחים"},{text:"כמה תלמידים יש בסך הכל?",answer:"22"}]}
+    {id:"music",title:"מוזיקה בדעצמה",desc:"ז׳אנרי המוזיקה האהובים בכיתה",unit:"תלמידים",emoji:"icons/headphones.svg",
+     rows:[{label:"היפ-הופ",value:24},{label:"פופ",value:20},{label:"רוק",value:20},{label:"מי-ינוכית",value:16}],
+     questions:[{text:"מהו ז׳אנר המוזיקה הכי אהוב?",answer:"היפ-הופ"},{text:"כמה תלמידים בחרו פופ או רוק ביחד?",answer:"40"},{text:"כמה תלמידים ענו בסך הכל?",answer:"80"},{text:"מה האחוז של אוהבי פופ?",answer:"25%"}]},
+    {id:"garden",title:"גינה קהילתית",desc:"ירקות שתושבים רוצים לגדל",unit:"תושבים",emoji:"icons/carrot.svg",
+     rows:[{label:"עגבניה",value:18},{label:"מלפפון",value:15},{label:"גזר",value:15},{label:"פלפל",value:12}],
+     questions:[{text:"איזה ירק הכי פופולרי?",answer:"עגבניה"},{text:"כמה תושבים בחרו מלפפון וגזר ביחד?",answer:"30"},{text:"כמה תושבים ענו בסך הכל?",answer:"60"},{text:"מה האחוז של אוהבי מלפפון?",answer:"25%"}]},
+    {id:"books",title:"חנות ספרים",desc:"ז׳אנרי הקריאה האהובים על הלקוחות",unit:"לקוחות",emoji:"icons/book.svg",
+     rows:[{label:"מתח",value:48},{label:"פנטזיה",value:36},{label:"רומן",value:24},{label:"ביוגרפיה",value:12}],
+     questions:[{text:"מהו ז׳אנר הספרים הכי אהוב?",answer:"מתח"},{text:"כמה לקוחות בחרו פנטזיה ורומן ביחד?",answer:"60"},{text:"כמה לקוחות ענו בסך הכל?",answer:"120"},{text:"מה האחוז של אוהבי פנטזיה?",answer:"30%"}]},
+    {id:"sports_build",title:"ספורט באולימפיאדה",desc:"ענפי הספורט האהובים על שחקנים צעירים",unit:"שחקנים",emoji:"icons/ball.svg",
+     rows:[{label:"כדורגל",value:16},{label:"כדורסל",value:12},{label:"טניס",value:8},{label:"שחייה",value:4}],
+     questions:[{text:"איזה ענף הכי פופולרי?",answer:"כדורגל"},{text:"כמה שחקנים בחרו כדורסל וטניס ביחד?",answer:"20"},{text:"כמה שחקנים ענו בסך הכל?",answer:"40"},{text:"מה האחוז של אוהבי כדורסל?",answer:"30%"}]},
+    {id:"trip",title:"יעד לטיול השנתי",desc:"היעד המועדף על תלמידי החטיבה",unit:"תלמידים",emoji:"icons/Bicycle.svg",
+     rows:[{label:"גליל",value:80},{label:"אילת",value:60},{label:"גולן",value:40},{label:"נגב",value:20}],
+     questions:[{text:"מהו היעד הכי פופולרי?",answer:"גליל"},{text:"כמה תלמידים בחרו אילת וגולן ביחד?",answer:"100"},{text:"כמה תלמידים ענו בסך הכל?",answer:"200"},{text:"מה האחוז של אוהבי גליל?",answer:"40%"}]},
+    {id:"dessert",title:"מנות קינוח",desc:"הקינוח האהוב על הסועדים במסעדה",unit:"סועדים",emoji:"icons/icecream.svg",
+     rows:[{label:"גלידה",value:20},{label:"מלבי",value:15},{label:"וופל",value:10},{label:"סלרטיות",value:5}],
+     questions:[{text:"איזה קינוח הכי פופולרי?",answer:"גלידה"},{text:"כמה סועדים בחרו מלבי ווופל ביחד?",answer:"25"},{text:"כמה סועדים ענו בסך הכל?",answer:"50"},{text:"מה האחוז של אוהבי מלבי?",answer:"30%"}]},
+    {id:"social",title:"רשתות חברתיות",desc:"אפליקציית הרשת החברתית האהובה על סטודנטים",unit:"סטודנטים",emoji:"icons/phone.svg",
+     rows:[{label:"שיתוף תמונות",value:64},{label:"סרטונים קצרים",value:48},{label:"הודעות מיידיות",value:32},{label:"רשת מקצועית",value:16}],
+     questions:[{text:"איזו אפליקציה הכי פופולרית?",answer:"שיתוף תמונות"},{text:"כמה סטודנטים בחרו סרטונים קצרים והודעות מיידיות ביחד?",answer:"80"},{text:"כמה סטודנטים ענו בסך הכל?",answer:"160"},{text:"מה האחוז של אוהבי סרטונים קצרים?",answer:"30%"}]}
   ],
-  emojis:["icons/Smiley.svg","icons/apple.svg","icons/ball.svg","icons/book.svg","icons/car.svg","icons/cup.svg","icons/dog.svg","icons/flower.svg","icons/heart.svg","icons/house.svg","icons/pizza.svg"]
+  emojis:["icons/Bicycle.svg","icons/Smiley.svg","icons/apple.svg","icons/art.svg","icons/ball.svg","icons/book.svg","icons/car.svg","icons/carrot.svg","icons/cup.svg","icons/dog.svg","icons/flower.svg","icons/headphones.svg","icons/heart.svg","icons/horse.svg","icons/house.svg","icons/icecream.svg","icons/phone.svg","icons/pizza.svg","icons/recycle.svg","icons/sun.svg","icons/truck.svg"]
 };
 const S={
   graph:null,task:null,
@@ -552,7 +573,7 @@ function checkA(mode){
 function renderPresetList(){
   document.getElementById('preset-list').innerHTML=DATA.presetTasks.map(t=>`
     <div class="list-card" onclick="openPreset('${t.id}')">
-      <div class="list-emoji" style="background:var(--surface-container)">📊</div>
+      <div class="list-emoji" style="background:var(--surface-container)">${iconHtml(t.emoji||'icons/ball.svg',44)}</div>
       <div class="list-info"><h3>${t.title}</h3><p>${t.desc}</p></div>
       <div class="list-arrow">‹</div>
     </div>`).join('');
@@ -563,6 +584,7 @@ function openPreset(id){
   S.manualCols={};
   S.task.rows.forEach(r=>{S.manualCols[r.label]={full:0,half:false}});
   S.iconLabel=S.task.unit||'יחידות';
+  S.selEmoji=S.task.emoji||'icons/ball.svg';
   go('s-preset-build');
 }
 
