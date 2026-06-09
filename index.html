@@ -91,6 +91,10 @@ body{font-family:'Rubik',sans-serif;background:var(--surface);color:var(--on-sur
 .q-text{font-size:19px;font-weight:500;color:var(--on-surface);margin-bottom:12px;line-height:1.5}
 .q-inp{width:100%;border:2px solid var(--outline-variant);border-radius:var(--r-md);padding:12px 16px;font-size:17px;font-family:'Rubik',sans-serif;color:var(--on-surface);background:var(--surface);direction:rtl;transition:border .15s}
 .q-inp:focus{outline:none;border-color:var(--primary)}
+.mc-wrap{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.mc-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border:2px solid var(--outline-variant);border-radius:var(--r-md);cursor:pointer;font-size:16px;transition:border .15s}
+.mc-opt:hover{border-color:var(--primary)}
+.mc-opt input[type=radio]{accent-color:var(--primary);width:18px;height:18px;cursor:pointer}
 .q-fb{display:none;margin-top:8px;padding:10px 14px;border-radius:var(--r-md);font-size:16px;font-weight:500;align-items:center;gap:6px}
 .q-fb.ok{background:#e8f5e9;color:#1b5e20}
 .q-fb.no{background:#ffebee;color:#b71c1c}
@@ -185,44 +189,86 @@ body{font-family:'Rubik',sans-serif;background:var(--surface);color:var(--on-sur
 <script>
 const DATA={
   graphs:[
-    {id:"weather",title:"מזג האוויר החודש",desc:"התפלגות ימי מזג האוויר ב-30 הימים האחרונים",emoji:"icons/sun.svg",color:"#fff8e1",iconValue:3,iconLabel:"ימים",
-     rows:[{label:"שמש",value:12},{label:"מעונן חלקית",value:9},{label:"גשם",value:6},{label:"רוחות חזקות",value:3}],
-     questions:[{text:"כמה ימי שמש היו החודש?",answer:"12"},{text:"כמה אייקונים יש בשורת גשם?",answer:"2"},{text:"כמה יותר ימי שמש מאשר ימי גשם?",answer:"6"},{text:"כמה ימים נספרו בסך הכל?",answer:"30"}]},
-    {id:"recycle",title:"מיחזור בבית הספר",desc:"כמויות הפסולת שנאספה בסוגים שונים",emoji:"icons/recycle.svg",color:"#e8f5e9",iconValue:10,iconLabel:"ק״ג",
-     rows:[{label:"נייר וקרטון",value:50},{label:"פלסטיק",value:40},{label:"מתכות ופחיות",value:30},{label:"זכוכית",value:20},{label:"פסולת אלקטרונית",value:10}],
-     questions:[{text:"כמה ק״ג של נייר וקרטון נאספו?",answer:"50"},{text:"כמה אייקונים יש בשורת פלסטיק?",answer:"4"},{text:"כמה יותר ק״ג של נייר מאשר זכוכית?",answer:"30"},{text:"כמה ק״ג פסולת נאספה בסך הכל?",answer:"150"}]},
-    {id:"hobbies_read",title:"חוגים בשכונה",desc:"רישום ילדים לחוגי אחר הצהריים",emoji:"icons/art.svg",color:"#fce4ec",iconValue:5,iconLabel:"משתתפים",
-     rows:[{label:"דרמה ותיאטרון",value:25},{label:"אמנות ויצירה",value:20},{label:"שחמט",value:15}],
-     questions:[{text:"לאיזה חוג נרשמו הכי הרבה ילדים?",answer:"דרמה ותיאטרון"},{text:"כמה אייקונים יש בשורת שחמט?",answer:"3"},{text:"כמה יותר ילדים בחוג דרמה מאשר שחמט?",answer:"10"},{text:"כמה ילדים נרשמו לחוגים בסך הכל?",answer:"60"}]},
-    {id:"cars",title:"צבעי מכוניות בחניון",desc:"צבעי המכוניות שנכנסו בשעה הראשונה",emoji:"icons/car.svg",color:"#e8f0ff",iconValue:5,iconLabel:"מכוניות",
-     rows:[{label:"לבן",value:35},{label:"שחור",value:25},{label:"אפור",value:20},{label:"כחול",value:15},{label:"כסף",value:15},{label:"אדום",value:10}],
-     questions:[{text:"איזה צבע הכי נפוץ?",answer:"לבן"},{text:"כמה אייקונים יש בשורת שחור?",answer:"5"},{text:"כמה יותר מכוניות לבנות מאשר אדומות?",answer:"25"},{text:"כמה מכוניות נכנסו בסך הכל?",answer:"120"}]},
-    {id:"icecream",title:"טעמי גלידה בגלידריה",desc:"כמויות הגלידה הנמכרות בשעות הצהריים",emoji:"icons/icecream.svg",color:"#fce4ec",iconValue:5,iconLabel:"מנות",
-     rows:[{label:"שוקולד",value:45},{label:"וניל",value:30},{label:"תות",value:15},{label:"פיסטוק",value:10}],
-     questions:[{text:"איזה טעם הכי נמכר?",answer:"שוקולד"},{text:"כמה אייקונים יש בשורת וניל?",answer:"6"},{text:"כמה יותר מנות שוקולד מאשר פיסטוק?",answer:"35"},{text:"כמה מנות נמכרו בסך הכל?",answer:"100"}]}
+    {id:"music_read",title:"מצעד המוזיקה",desc:"ז׳אנרי המוזיקה האהובים בכיתה",emoji:"icons/headphones.svg",color:"#e8f0ff",iconValue:2,iconLabel:"תלמידים",
+     rows:[{label:"ים-תיכוני",value:8},{label:"היפ-הופ",value:14},{label:"פופ",value:12},{label:"רוק",value:6}],
+     questions:[
+       {text:"מהו הז׳אנר השכיח ביותר?",answer:"היפ-הופ"},
+       {text:"חשבו את השכיחות היחסית של ים-תיכוני (כשבר פשוט מצומצם)",answer:"1/5"},
+       {text:"חשבו את השכיחות המצטברת של פופ ורוק יחד",answer:"18"},
+       {text:"מהו אחוז התלמידים שאוהבים פופ?",answer:"30%"},
+       {text:"אם נשנה את המקרא בפיקטוגרמה — האם הז׳אנר השכיח ישתנה?",type:"mc",options:["א. כן","ב. לא — כי כמות התלמידים שבחרו בכל ז׳אנר נשארת זהה","ג. אי אפשר לדעת","ד. תלוי בז׳אנר"],answer:"ב"}
+     ]},
+    {id:"garden_read",title:"גינה קהילתית",desc:"ירקות שתושבים רוצים לגדל",emoji:"icons/carrot.svg",color:"#e8f5e9",iconValue:3,iconLabel:"תושבים",
+     rows:[{label:"גזר",value:15},{label:"עגבנייה",value:21},{label:"פלפל",value:6},{label:"מלפפון",value:18}],
+     questions:[
+       {text:"מהו הירק השכיח ביותר?",answer:"עגבנייה"},
+       {text:"חשבו את השכיחות היחסית של פלפל (כשבר פשוט מצומצם)",answer:"1/10"},
+       {text:"חשבו את השכיחות המצטברת של מלפפון וגזר יחד",answer:"33"},
+       {text:"מהו אחוז התושבים שרוצים לגדל מלפפון?",answer:"30%"},
+       {text:"אם נשנה את ערך כל סמל במקרא — האם הירק השכיח ישתנה?",type:"mc",options:["א. כן","ב. לא — כי היחס בין הכמויות נשאר זהה","ג. אי אפשר לדעת בלי לראות את הפיקטוגרמה","ד. תלוי אם המספר במקרא זוגי או אי-זוגי"],answer:"ב"}
+     ]},
+    {id:"books_read",title:"חנות ספרים",desc:"ז׳אנרי הקריאה האהובים על הלקוחות",emoji:"icons/book.svg",color:"#fff3e0",iconValue:6,iconLabel:"לקוחות",
+     rows:[{label:"רומן",value:12},{label:"מתח",value:18},{label:"ביוגרפיה",value:6},{label:"פנטזיה",value:12}],
+     questions:[
+       {text:"מהו ז׳אנר הספרים השכיח ביותר?",answer:"מתח"},
+       {text:"חשבו את השכיחות היחסית של ביוגרפיה (כשבר פשוט מצומצם)",answer:"1/8"},
+       {text:"חשבו את השכיחות המצטברת של פנטזיה ורומן יחד",answer:"24"},
+       {text:"מהו אחוז הלקוחות שאוהבים פנטזיה?",answer:"25%"},
+       {text:"אם נשנה את המקרא כך שכל סמל ייצג יותר אנשים — האם הז׳אנר השכיח ישתנה?",type:"mc",options:["א. כן — כי הציור ייראה אחרת","ב. לא — כי כמות האנשים שבחרו בכל ז׳אנר לא השתנתה","ג. אי אפשר לדעת ללא נתונים נוספים","ד. תלוי איזה ז׳אנר נבחר"],answer:"ב"}
+     ]},
+    {id:"sports_read",title:"ספורט באולימפיאדה",desc:"ענפי הספורט האהובים על שחקנים צעירים",emoji:"icons/ball.svg",color:"#e8f5e9",iconValue:2,iconLabel:"שחקנים",
+     rows:[{label:"טניס",value:8},{label:"כדורגל",value:18},{label:"שחייה",value:10},{label:"כדורסל",value:12}],
+     questions:[
+       {text:"מהו ענף הספורט השכיח ביותר?",answer:"כדורגל"},
+       {text:"חשבו את השכיחות היחסית של שחייה (כשבר פשוט מצומצם)",answer:"5/24"},
+       {text:"חשבו את השכיחות המצטברת של כדורסל וטניס יחד",answer:"20"},
+       {text:"מהו אחוז השחקנים שאוהבים כדורסל?",answer:"25%"},
+       {text:"אם נחליט לשנות את המקרא — האם ענף הספורט השכיח ישתנה?",type:"mc",options:["א. כן — המקרא קובע מי השכיח","ב. לא — כי כמות השחקנים בפועל בכל ענף נשארת זהה","ג. אי אפשר לדעת","ד. תלוי אם מספר המשיבים זוגי"],answer:"ב"}
+     ]},
+    {id:"trip_read",title:"יעד לטיול השנתי",desc:"היעד המועדף על תלמידי החטיבה",emoji:"icons/Bicycle.svg",color:"#e8f0ff",iconValue:4,iconLabel:"תלמידים",
+     rows:[{label:"גולן",value:16},{label:"גליל",value:24},{label:"נגב",value:8},{label:"אילת",value:12}],
+     questions:[
+       {text:"מהו היעד השכיח ביותר?",answer:"גליל"},
+       {text:"חשבו את השכיחות היחסית של נגב (כשבר פשוט מצומצם)",answer:"2/15"},
+       {text:"חשבו את השכיחות המצטברת של אילת וגולן יחד",answer:"28"},
+       {text:"מהו אחוז התלמידים שאוהבים את הגליל?",answer:"40%"},
+       {text:"אם כל ציור ייצג 6 תלמידים במקום 3 — האם היעד השכיח ישתנה?",type:"mc",options:["א. כן — כי הגרף יצטמצם","ב. לא — כי היחס בין כמויות התלמידים נשאר קבוע","ג. אי אפשר לדעת","ד. תלוי ביעד הטיול"],answer:"ב"}
+     ]},
+    {id:"dessert_read",title:"קינוחים במסעדה",desc:"הקינוח האהוב על הסועדים במסעדה",emoji:"icons/icecream.svg",color:"#fce4ec",iconValue:5,iconLabel:"סועדים",
+     rows:[{label:"וופל",value:25},{label:"גלידה",value:35},{label:"סלט פירות",value:5},{label:"מלבי",value:15}],
+     questions:[
+       {text:"מהו הקינוח השכיח ביותר?",answer:"גלידה"},
+       {text:"חשבו את השכיחות היחסית של סלט פירות (כשבר פשוט מצומצם)",answer:"1/16"},
+       {text:"חשבו את השכיחות המצטברת של מלבי ווופל יחד",answer:"40"},
+       {text:"מהו אחוז הסועדים שאוהבים מלבי?",answer:"18.75%"},
+       {text:"אם נשנה את סימני המקרא בפיקטוגרמה — האם הקינוח השכיח ישתנה?",type:"mc",options:["א. כן — כי הגרף משתנה באופן מוחלט","ב. לא — כי כמות הסועדים בפועל לכל קינוח לא השתנתה","ג. אי אפשר לקבוע בוודאות","ד. תלוי אם כמות הקינוחים זוגית"],answer:"ב"}
+     ]},
+    {id:"social_read",title:"רשתות חברתיות",desc:"האפליקציה האהובה על סטודנטים",emoji:"icons/phone.svg",color:"#f3e5f5",iconValue:3,iconLabel:"סטודנטים",
+     rows:[{label:"הודעות מיידיות",value:12},{label:"שיתוף תמונות",value:21},{label:"רשת מקצועית",value:9},{label:"סרטונים קצרים",value:18}],
+     questions:[
+       {text:"מהו סוג האפליקציה השכיח ביותר?",answer:"שיתוף תמונות"},
+       {text:"חשבו את השכיחות היחסית של רשת מקצועית (כשבר פשוט מצומצם)",answer:"3/20"},
+       {text:"חשבו את השכיחות המצטברת של סרטונים קצרים והודעות מיידיות יחד",answer:"30"},
+       {text:"מהו אחוז הסטודנטים שמשתמשים בסרטונים קצרים?",answer:"30%"},
+       {text:"אם נשנה את ערך המקרא — האם האפליקציה השכיחה תשתנה?",type:"mc",options:["א. כן — המקרא קובע מי השכיח בגרף החדש","ב. לא — כמות המשתמשים בפועל נשארת זהה לחלוטין","ג. אי אפשר לדעת בלי הציור עצמו","ד. תלוי בסוג האפליקציה שנבחרה"],answer:"ב"}
+     ]}
   ],
   presetTasks:[
-    {id:"music",title:"מוזיקה בדעצמה",desc:"ז׳אנרי המוזיקה האהובים בכיתה",unit:"תלמידים",emoji:"icons/headphones.svg",
-     rows:[{label:"היפ-הופ",value:24},{label:"פופ",value:20},{label:"רוק",value:20},{label:"מי-ינוכית",value:16}],
-     questions:[{text:"מהו ז׳אנר המוזיקה הכי אהוב?",answer:"היפ-הופ"},{text:"כמה תלמידים בחרו פופ או רוק ביחד?",answer:"40"},{text:"כמה תלמידים ענו בסך הכל?",answer:"80"},{text:"מה האחוז של אוהבי פופ?",answer:"25%"}]},
-    {id:"garden",title:"גינה קהילתית",desc:"ירקות שתושבים רוצים לגדל",unit:"תושבים",emoji:"icons/carrot.svg",
-     rows:[{label:"עגבניה",value:18},{label:"מלפפון",value:15},{label:"גזר",value:15},{label:"פלפל",value:12}],
-     questions:[{text:"איזה ירק הכי פופולרי?",answer:"עגבניה"},{text:"כמה תושבים בחרו מלפפון וגזר ביחד?",answer:"30"},{text:"כמה תושבים ענו בסך הכל?",answer:"60"},{text:"מה האחוז של אוהבי מלפפון?",answer:"25%"}]},
-    {id:"books",title:"חנות ספרים",desc:"ז׳אנרי הקריאה האהובים על הלקוחות",unit:"לקוחות",emoji:"icons/book.svg",
-     rows:[{label:"מתח",value:48},{label:"פנטזיה",value:36},{label:"רומן",value:24},{label:"ביוגרפיה",value:12}],
-     questions:[{text:"מהו ז׳אנר הספרים הכי אהוב?",answer:"מתח"},{text:"כמה לקוחות בחרו פנטזיה ורומן ביחד?",answer:"60"},{text:"כמה לקוחות ענו בסך הכל?",answer:"120"},{text:"מה האחוז של אוהבי פנטזיה?",answer:"30%"}]},
-    {id:"sports_build",title:"ספורט באולימפיאדה",desc:"ענפי הספורט האהובים על שחקנים צעירים",unit:"שחקנים",emoji:"icons/ball.svg",
-     rows:[{label:"כדורגל",value:16},{label:"כדורסל",value:12},{label:"טניס",value:8},{label:"שחייה",value:4}],
-     questions:[{text:"איזה ענף הכי פופולרי?",answer:"כדורגל"},{text:"כמה שחקנים בחרו כדורסל וטניס ביחד?",answer:"20"},{text:"כמה שחקנים ענו בסך הכל?",answer:"40"},{text:"מה האחוז של אוהבי כדורסל?",answer:"30%"}]},
-    {id:"trip",title:"יעד לטיול השנתי",desc:"היעד המועדף על תלמידי החטיבה",unit:"תלמידים",emoji:"icons/Bicycle.svg",
-     rows:[{label:"גליל",value:80},{label:"אילת",value:60},{label:"גולן",value:40},{label:"נגב",value:20}],
-     questions:[{text:"מהו היעד הכי פופולרי?",answer:"גליל"},{text:"כמה תלמידים בחרו אילת וגולן ביחד?",answer:"100"},{text:"כמה תלמידים ענו בסך הכל?",answer:"200"},{text:"מה האחוז של אוהבי גליל?",answer:"40%"}]},
-    {id:"dessert",title:"מנות קינוח",desc:"הקינוח האהוב על הסועדים במסעדה",unit:"סועדים",emoji:"icons/icecream.svg",
-     rows:[{label:"גלידה",value:20},{label:"מלבי",value:15},{label:"וופל",value:10},{label:"סלרטיות",value:5}],
-     questions:[{text:"איזה קינוח הכי פופולרי?",answer:"גלידה"},{text:"כמה סועדים בחרו מלבי ווופל ביחד?",answer:"25"},{text:"כמה סועדים ענו בסך הכל?",answer:"50"},{text:"מה האחוז של אוהבי מלבי?",answer:"30%"}]},
-    {id:"social",title:"רשתות חברתיות",desc:"אפליקציית הרשת החברתית האהובה על סטודנטים",unit:"סטודנטים",emoji:"icons/phone.svg",
-     rows:[{label:"שיתוף תמונות",value:64},{label:"סרטונים קצרים",value:48},{label:"הודעות מיידיות",value:32},{label:"רשת מקצועית",value:16}],
-     questions:[{text:"איזו אפליקציה הכי פופולרית?",answer:"שיתוף תמונות"},{text:"כמה סטודנטים בחרו סרטונים קצרים והודעות מיידיות ביחד?",answer:"80"},{text:"כמה סטודנטים ענו בסך הכל?",answer:"160"},{text:"מה האחוז של אוהבי סרטונים קצרים?",answer:"30%"}]}
+    {id:"weather",title:"מזג האוויר החודש",desc:"התפלגות ימי מזג האוויר ב-30 הימים האחרונים",unit:"ימים",emoji:"icons/sun.svg",
+     rows:[{label:"שמש",value:9},{label:"מעונן חלקית",value:3},{label:"גשם",value:12},{label:"רוחות חזקות",value:6}],
+     questions:[{text:"כמה ימי שמש היו החודש?",answer:"12"},{text:"כמה אייקונים יש בשורת גשם?",answer:"2"},{text:"כמה יותר ימי שמש מאשר ימי גשם?",answer:"6"},{text:"כמה ימים נספרו בסך הכל?",answer:"30"}]},
+    {id:"recycle",title:"מיחזור בבית הספר",desc:"כמויות הפסולת שנאספה בסוגים שונים",unit:"ק״ג",emoji:"icons/recycle.svg",
+     rows:[{label:"נייר וקרטון",value:30},{label:"פלסטיק",value:50},{label:"מתכות ופחיות",value:10},{label:"זכוכית",value:40},{label:"פסולת אלקטרונית",value:20}],
+     questions:[{text:"כמה ק״ג נייר נאספו?",answer:"50"},{text:"איזה סוג פסולת הכי נפוץ?",answer:"נייר וקרטון"},{text:"כמה יותר ק״ג נייר מאשר זכוכית?",answer:"30"},{text:"כמה ק״ג פסולת בסך הכל?",answer:"150"}]},
+    {id:"hobbies_build",title:"חוגים בשכונה",desc:"רישום ילדים לחוגי אחר הצהריים",unit:"משתתפים",emoji:"icons/art.svg",
+     rows:[{label:"דרמה ותיאטרון",value:20},{label:"אמנות ויצירה",value:15},{label:"שחמט",value:25}],
+     questions:[{text:"לאיזה חוג נרשמו הכי הרבה ילדים?",answer:"דרמה ותיאטרון"},{text:"כמה יותר ילדים בחוג דרמה מאשר שחמט?",answer:"10"},{text:"כמה ילדים נרשמו בסך הכל?",answer:"60"}]},
+    {id:"cars_build",title:"צבעי מכוניות בחניון",desc:"צבעי המכוניות שנכנסו בשעה הראשונה",unit:"מכוניות",emoji:"icons/car.svg",
+     rows:[{label:"לבן",value:25},{label:"שחור",value:10},{label:"אפור",value:35},{label:"כחול",value:20},{label:"כסף",value:15},{label:"אדום",value:15}],
+     questions:[{text:"איזה צבע הכי נפוץ?",answer:"לבן"},{text:"כמה יותר מכוניות לבנות מאשר אדומות?",answer:"25"},{text:"כמה מכוניות נכנסו בסך הכל?",answer:"120"}]},
+    {id:"icecream_build",title:"טעמי גלידה בגלידריה",desc:"כמויות הגלידה הנמכרות בשעות הצהריים",unit:"מנות",emoji:"icons/icecream.svg",
+     rows:[{label:"שוקולד",value:30},{label:"וניל",value:45},{label:"תות",value:10},{label:"פיסטוק",value:15}],
+     questions:[{text:"איזה טעם הכי נמכר?",answer:"שוקולד"},{text:"כמה יותר מנות שוקולד מאשר פיסטוק?",answer:"35"},{text:"כמה מנות נמכרו בסך הכל?",answer:"100"}]}
   ],
   emojis:["icons/Bicycle.svg","icons/Smiley.svg","icons/apple.svg","icons/art.svg","icons/ball.svg","icons/book.svg","icons/car.svg","icons/carrot.svg","icons/cup.svg","icons/dog.svg","icons/flower.svg","icons/headphones.svg","icons/heart.svg","icons/horse.svg","icons/house.svg","icons/icecream.svg","icons/phone.svg","icons/pizza.svg","icons/recycle.svg","icons/sun.svg","icons/truck.svg"]
 };
@@ -546,10 +592,18 @@ function openGraph(id){
     return`<div class="chart-col"><div class="e-stack">${eStack(full,half,g.emoji)}</div></div>`;
   }).join('');
   document.getElementById('gq-x-labels').innerHTML=g.rows.map(r=>`<div class="x-lbl">${r.label}</div>`).join('');
-  document.getElementById('q-list').innerHTML=g.questions.map((q,i)=>`
-    <div class="q-card"><div class="q-num">${i+1}</div><div class="q-text">${q.text}</div>
+  document.getElementById('q-list').innerHTML=g.questions.map((q,i)=>{
+    if(q.type==='mc'){
+      const opts=q.options.map((o,j)=>`
+        <label class="mc-opt"><input type="radio" name="ta-mc-${i}" value="${o.charAt(0)}" id="ta-mc-${i}-${j}"> ${o}</label>`).join('');
+      return`<div class="q-card"><div class="q-num">${i+1}</div><div class="q-text">${q.text}</div>
+        <div class="mc-wrap" id="ta-a-${i}">${opts}</div>
+        <div class="q-fb" id="ta-fb-${i}"></div></div>`;
+    }
+    return`<div class="q-card"><div class="q-num">${i+1}</div><div class="q-text">${q.text}</div>
     <input class="q-inp" type="text" placeholder="הקלידו תשובה..." id="ta-a-${i}">
-    <div class="q-fb" id="ta-fb-${i}"></div></div>`).join('');
+    <div class="q-fb" id="ta-fb-${i}"></div></div>`;
+  }).join('');
   go('s-graph-q');
 }
 
@@ -560,9 +614,16 @@ function checkA(mode){
   m.qs().forEach((q,i)=>{
     const inp=document.getElementById(m.ip+i);
     const fbEl=document.getElementById(m.fb+i);
-    if(!inp||!fbEl)return;
-    const v=inp.value.trim();
-    const ok=v.toLowerCase()===q.answer.toLowerCase()||Number(v)===Number(q.answer);
+    if(!fbEl)return;
+    let v='';
+    if(q.type==='mc'){
+      const sel=document.querySelector(`input[name="ta-mc-${i}"]:checked`);
+      v=sel?sel.value:'';
+    } else {
+      if(!inp)return;
+      v=inp.value.trim();
+    }
+    const ok=q.type==='mc'?v===q.answer:v.toLowerCase()===q.answer.toLowerCase()||Number(v)===Number(q.answer);
     fbEl.className='q-fb '+(ok?'ok':'no');
     fbEl.style.display='flex';
     fbEl.textContent=ok?`✓ נכון! התשובה: ${q.answer}`:`✗ לא מדויק. התשובה: ${q.answer}`;
